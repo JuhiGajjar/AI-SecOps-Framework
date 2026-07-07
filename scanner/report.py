@@ -78,3 +78,46 @@ class SecurityDatabase:
             
             conn.commit()
             return scan_id
+        
+    def generate_markdown_report(self, scan_id: int):
+        """Generates a professional Markdown audit report document."""
+        report_dir = os.path.join(os.path.dirname(__file__), "..", "reports")
+        os.makedirs(report_dir, exist_ok=True)
+        report_file = os.path.join(report_dir, f"security_report_#{scan_id}.md")
+        
+        with self.get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("SELECT timestamp, total_tests, failed_tests, avg_risk_score, status FROM scans WHERE scan_id = ?", (scan_id,))
+            scan = cursor.fetchone()
+            
+            cursor.execute("SELECT category, severity, payload, output, status, risk_score, recommendation FROM scan_results WHERE scan_id = ?", (scan_id,))
+            results = cursor.fetchall()
+            
+        markdown_content = f"""# 🛡️ AI-SecOps Security Audit Compliance Report
+**Generated Timestamp:** {scan[0]}  
+**Scan Run ID:** #{scan_id}  
+**Overall Audit Status:** `{scan[4]}`
+
+## 📊 Executive Summary
+* **Total Threat Vectors Simulated:** {scan[1]}
+* **Successful Exploits Detected:** {scan[2]}
+* **Calculated Framework Risk Index:** {scan[3]} / 10.0
+
+---
+
+## 🔍 Detailed Threat Vector Breakdown
+"""
+        for idx, row in enumerate(results, 1):
+            markdown_content += f"""
+### [{idx}] {row[0]}
+* **Severity Class:** {row[1]}
+* **Scanner Finding Metric:** `{row[4]}` (Risk Score: {row[5]}/10.0)
+* **Injected Attack Vector:** `{row[2]}`
+* **Target System Response:** *"{row[3]}"*
+* **💡 Remediations & Engineering Mitigations:** {row[6]}
+
+---
+"""
+        with open(report_file, "w") as f:
+            f.write(markdown_content)
+        print(f"📝 Compliance Report Document generated at: /reports/security_report_#{scan_id}.md")
