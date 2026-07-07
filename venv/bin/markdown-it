@@ -1,0 +1,6 @@
+#!/home/bisag/Downloads/M.Tech_Project_Juhi/Project_AISecOps/ai-secops-framework/venv/bin/python3
+import sys
+from markdown_it.cli.parse import main
+if __name__ == '__main__':
+    sys.argv[0] = sys.argv[0].removesuffix('.exe')
+    sys.exit(main())
