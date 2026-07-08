@@ -1,0 +1,29 @@
+.pytest_cache/
+*.pyc
+
+# Virtual Environments
+.venv/
+myenv/
+venv/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Environment Variables
+.env
+
+# Database
+*.db
+*.sqlite3
+
+# Logs
+logs/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
