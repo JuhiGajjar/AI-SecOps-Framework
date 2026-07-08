@@ -1,0 +1,13 @@
+prompt_firewall:
+  enabled: true
+
+risk_engine:
+  block_threshold: 80
+  warning_threshold: 50
+
+output_guard:
+  detect_pii: true
+  detect_secrets: true
+
+logging:
+  store_prompts: true
