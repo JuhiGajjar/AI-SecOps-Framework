@@ -1,13 +1,44 @@
 prompt_firewall:
+
   enabled: true
 
+  max_prompt_length: 5000
+
+  block_prompt_injection: true
+
+  block_jailbreak: true
+
+  block_system_override: true
+
+  block_tool_abuse: true
+
+
 risk_engine:
-  block_threshold: 80
+
+  enabled: true
+
   warning_threshold: 50
 
+  block_threshold: 80
+
+
 output_guard:
+
+  enabled: true
+
   detect_pii: true
+
   detect_secrets: true
 
+  detect_toxicity: true
+
+
 logging:
-  store_prompts: true
+
+  enabled: true
+
+  store_prompt: true
+
+  store_response: true
+
+  store_risk_score: true
