@@ -1,6 +1,7 @@
-myenv/
+venv/
 __pycache__/
 .pytest_cache/
 *.pyc
 .env
-.venv/
+chroma_data/
+reports/
