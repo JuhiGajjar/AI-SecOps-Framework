@@ -11,7 +11,6 @@ from security.exceptions import DetectorExecutionError, FirewallError, Normaliza
 from security.models import DetectionResult, FirewallResponse
 from security.normalizer import TextNormalizer
 
-
 class PromptFirewall:
     """
     Main gateway security orchestrator that coordinates the prompt validation pipeline.
@@ -27,7 +26,7 @@ class PromptFirewall:
     1. Input Validation: Verifies that the prompt is a non-null string instance.
     2. Timing: Starts a high-resolution timer.
     3. Normalization: Invokes TextNormalizer.normalize_text() to strip evasions.
-    4. Execution: Runs all configured detectors sequentially (fail_fast is inactive).
+    4. Execution: Runs all configured detectors sequentially (fail_fast is inactiv/.;e).
     5. Isolation: Intercepts detector execution exceptions under fail_secure conditions.
     6. Logging: Invokes AuditLogger.log_event() exactly once.
     7. Response: Packages results into a FirewallResponse DTO.
